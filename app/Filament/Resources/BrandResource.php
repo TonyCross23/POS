@@ -4,8 +4,8 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Brand;
 use Filament\Forms\Set;
-use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -15,15 +15,15 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\BrandResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Filament\Resources\BrandResource\RelationManagers;
 
-class CategoryResource extends Resource
+class BrandResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Brand::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
     public static function form(Form $form): Form
     {
@@ -34,26 +34,26 @@ class CategoryResource extends Resource
                 ->schema([
                     Forms\Components\TextInput::make('name')
                         ->required()
+                        ->helperText(new HtmlString('Type your brand name'))
                         ->maxLength(255)
-                        ->helperText(new HtmlString('Type your category name'))
                         ->live()
-                        ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                        ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                     Forms\Components\TextInput::make('slug')
+                        ->required()
                         ->disabled()
                         ->dehydrated()
-                        ->required()
+                        ->helperText(new HtmlString('If you input brand name auto completed slug name'))
                         ->maxLength(255)
-                        ->unique(Category::class,'slug',ignoreRecord:true)
-                        ->helperText(new HtmlString('If you input name slug is auto filed this name')),
+                        ->unique(Brand::class,'slug',ignoreRecord:true),
                 ]),
                     Forms\Components\FileUpload::make('image')
-                        ->image()
-                        ->directory('categories'),
+                        ->directory('brands')
+                        ->image(),
                     Forms\Components\Toggle::make('is_active')
-                        ->required()
-                        ->default(true),
-                    ])
-         ]);
+                        ->default(true)
+                        ->required(),
+                ])
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -61,11 +61,11 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -103,9 +103,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListBrands::route('/'),
+            'create' => Pages\CreateBrand::route('/create'),
+            'edit' => Pages\EditBrand::route('/{record}/edit'),
         ];
     }
 }
