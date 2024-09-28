@@ -42,7 +42,7 @@ class ProductResource extends Resource
                                 ->required()
                                 ->helperText(new HtmlString('Input your product name'))
                                 ->maxLength(255)
-                                ->live()
+                                ->live(onBlur:true)
                                 ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                             Forms\Components\TextInput::make('slug')
                                 ->required()
