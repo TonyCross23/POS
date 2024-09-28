@@ -36,7 +36,7 @@ class CategoryResource extends Resource
                         ->required()
                         ->maxLength(255)
                         ->helperText(new HtmlString('Type your category name'))
-                        ->live()
+                        ->live(onBlur:true)
                         ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                     Forms\Components\TextInput::make('slug')
                         ->disabled()

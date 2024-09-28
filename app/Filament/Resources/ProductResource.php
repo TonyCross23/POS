@@ -111,7 +111,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->limit(1),
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->searchable()
@@ -145,9 +146,9 @@ class ProductResource extends Resource
                 SelectFilter::make('category')
                     ->searchable()
                     ->relationship('category','name'),
-                SelectFilter::make('brand')
+                SelectFilter::make('category')
                     ->searchable()
-                    ->relationship('brand','name'),
+                    ->relationship('category','name'),
             ])
             ->actions([
                 ActionGroup::make([

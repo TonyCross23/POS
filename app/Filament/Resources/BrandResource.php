@@ -36,7 +36,7 @@ class BrandResource extends Resource
                         ->required()
                         ->helperText(new HtmlString('Type your brand name'))
                         ->maxLength(255)
-                        ->live()
+                        ->live(onBlur:true)
                         ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                     Forms\Components\TextInput::make('slug')
                         ->required()
@@ -61,8 +61,6 @@ class BrandResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\IconColumn::make('is_active')
