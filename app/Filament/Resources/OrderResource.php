@@ -29,6 +29,7 @@ use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\Widgets\OrderState;
 use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 
 class OrderResource extends Resource
@@ -246,6 +247,13 @@ class OrderResource extends Resource
     {
         return static::getModel()::count() > 100 ? "danger" : "success";
     }
+
+    public static function getWidgets(): array
+{
+    return [
+        OrderState::class,
+    ];
+}
 
     public static function getPages(): array
     {
