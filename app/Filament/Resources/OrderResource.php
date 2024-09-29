@@ -248,13 +248,6 @@ class OrderResource extends Resource
         return static::getModel()::count() > 100 ? "danger" : "success";
     }
 
-    public static function getWidgets(): array
-{
-    return [
-        OrderState::class,
-    ];
-}
-
     public static function getPages(): array
     {
         return [
