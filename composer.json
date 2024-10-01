@@ -8,8 +8,10 @@
         "php": "^8.1",
         "filament/filament": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
+        "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/slack-notification-channel": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.5"
     },

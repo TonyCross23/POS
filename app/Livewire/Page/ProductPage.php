@@ -8,10 +8,14 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use app\Helper\CartManagement;
+use App\Livewire\Partials\Nav;
 use Livewire\Attributes\Title;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ProductPage extends Component
 {
+    use LivewireAlert;
     use WithPagination;
     #[Title('Products - Prime Shop')]
 
@@ -32,6 +36,20 @@ class ProductPage extends Component
 
     #[Url]
     public $sort = 'latest';
+
+    //add to cart method
+    public function addToCart($product_id)
+    {
+        $total_count = CartManagement::addItemToCart($product_id);
+        $this->dispatch('update_cart_count', total_count: $total_count)->to(Nav::class);
+
+        //alert
+        $this->alert('success', 'Add Cart Successfully',[
+            'position' => 'bottom-end',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+    }
 
     public function render()
     {
