@@ -74,7 +74,7 @@ class CartManagement
                      'product_id' => $product->id,
                      'name' => $product->name,
                      'image' => $product->image[0],
-                     'quantity' => 1,
+                     'quantity' => $qty,
                      'price' => $product->price,
                      'unit_amount' => $product->price,
                      'total_amount' => $product->price,
@@ -111,7 +111,7 @@ class CartManagement
     }
 
     //remove item from cart
-    public static function removeCartItem ()
+    public static function removeCartItem ($product_id)
     {
         $cart_items = self::getCartItemsFromCookie();
 
@@ -146,15 +146,15 @@ class CartManagement
     //decrement item quantity
     public static function decrementQuantityToCartItem ($product_id)
     {
-        $cart_items = self::addCartItemsToCookie();
+        $cart_items = self::getCartItemsFromCookie();
 
         foreach ($cart_items as $key => $item)
         {
             if($item['product_id'] == $product_id) {
-                if($cart_items[$Key]['quantity'] > 1) {
-                    $cart_items[$Key]['quantity']--;
-                    $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount'];
-                }
+               if($cart_items[$key]['quantity'] > 1) {
+                $cart_items[$key]['quantity']--;
+                $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount'];
+               }
             }
         }
         self::addCartItemsToCookie($cart_items);

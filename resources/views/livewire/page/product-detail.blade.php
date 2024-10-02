@@ -35,7 +35,7 @@
                 <h2 class="max-w-xl mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
                   {{$product->name}}</h2>
                 <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                  <span>{{Number::currency($product->price)}}</span>
+                  <span>{{Number::currency($product->price),"USD"}}</span>
                   {{--<span class="text-base font-normal text-gray-500 line-through dark:text-gray-400">$1800.99</span>--}}
                 </p>
                 <p class="max-w-md markdown-content text-gray-700 dark:text-gray-300">
@@ -45,17 +45,17 @@
               <div class="w-32 mb-8 ">
                 <label for="" class="w-full pb-1 text-xl font-semibold text-gray-700 border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">Quantity</label>
                 <div class="relative flex flex-row w-full h-10 mt-6 bg-transparent rounded-lg">
-                  <button wire:click="decreaseQty" class="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
+                  <button  wire:click="decreaseQty" class="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
                     <span class="m-auto text-2xl font-thin"> - </span>
                   </button>
                   <input wire:model="quantity" type="number" readonly class="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black" placeholder="1">
-                  <button wire:click="increaseQty" class="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
+                  <button  wire:click="increaseQty" class="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
                     <span class="m-auto text-2xl font-thin">+</span>
                   </button>
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-4">
-                <button wire:click="addToCart({{$product->id}})" class="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
+                <button wire:click.prevent="addToCart({{$product->id}})" class="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
                   <span wire:loading.remove wire:target="addToCart({{$product->id}})">Add to cart</span>
                   <span>
                     <svg wire:loading wire:target="addToCart({{$product->id}})" xmlns="http://www.w3.org/2000/svg" style="margin: auto; background: none;" width="25" height="25" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
