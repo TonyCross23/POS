@@ -24,17 +24,25 @@ use App\Livewire\Auth\ResetPasswordPage;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/login', LoginPage::class);
-Route::get('register', RegisterPage::class);
-Route::get('/forgot', ForgotPage::class);
-Route::get('/reset-password', ResetPasswordPage::class);
-
 Route::get('/', HomePage::class);
 Route::get('/categories', CategoryPage::class);
 Route::get('/products', ProductPage::class);
 Route::get('/products/{slug}', ProductDetail::class);
 Route::get('/cart', Cart::class);
-Route::get('/my-order', MyOrder::class);
-Route::get('/success', SuccessPage::class);
-Route::get('/cancel', CancelPage::class);
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', LoginPage::class);
+    Route::get('register', RegisterPage::class);
+    Route::get('/forgot', ForgotPage::class);
+    Route::get('/reset-password', ResetPasswordPage::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect()->to('/');
+    });
+    Route::get('/my-order', MyOrder::class);
+    Route::get('/success', SuccessPage::class);
+    Route::get('/cancel', CancelPage::class);
+});
