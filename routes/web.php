@@ -27,7 +27,7 @@ use App\Livewire\Auth\ResetPasswordPage;
 */
 Route::get('/', HomePage::class);
 Route::get('/categories', CategoryPage::class);
-Route::get('/products', ProductPage::class);
+Route::get('/products', ProductPage::class)->name('products');
 Route::get('/products/{slug}', ProductDetail::class);
 Route::get('/cart', Cart::class);
 
@@ -45,6 +45,6 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/check-out',CheckOutPage::class);
     Route::get('/my-order', MyOrder::class);
-    Route::get('/success', SuccessPage::class);
-    Route::get('/cancel', CancelPage::class);
+    Route::get('/success', SuccessPage::class)->name('success');
+    Route::get('/cancel', CancelPage::class)->name('cancel');
 });
