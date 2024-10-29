@@ -201,20 +201,20 @@
           <h2 class="text-lg font-semibold mb-4">Summary</h2>
           <div class="flex justify-between mb-2">
             <span>Subtotal</span>
-            <span>₹404,999.00</span>
+            <span>{{Number::currency($item->order->grand_total,"USD")}}</span>
           </div>
           <div class="flex justify-between mb-2">
             <span>Taxes</span>
-            <span>₹0.00</span>
+            <span>{{Number::currency(0,"USD")}}</span>
           </div>
           <div class="flex justify-between mb-2">
             <span>Shipping</span>
-            <span>₹0.00</span>
+            <span>{{Number::currency(0,"USD")}}</span>
           </div>
           <hr class="my-2">
           <div class="flex justify-between mb-2">
             <span class="font-semibold">Grand Total</span>
-            <span class="font-semibold">₹404,999.00</span>
+            <span class="font-semibold">{{Number::currency($item->order->grand_total,"USD")}}</span>
           </div>
 
         </div>
