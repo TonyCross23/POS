@@ -14,6 +14,7 @@ use App\Livewire\Page\CheckOutPage;
 use App\Livewire\Page\ProductDetail;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\ResetPasswordPage;
+use App\Livewire\Page\MyOrdersDetailPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,8 @@ Route::middleware('auth')->group(function () {
         return redirect()->to('/');
     });
     Route::get('/check-out',CheckOutPage::class);
-    Route::get('/my-order', MyOrder::class);
+    Route::get('/my-orders', MyOrder::class);
+    Route::get('/my-orders/{id}', MyOrdersDetailPage::class);
     Route::get('/success', SuccessPage::class)->name('success');
     Route::get('/cancel', CancelPage::class)->name('cancel');
 });
